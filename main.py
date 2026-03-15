@@ -5,8 +5,9 @@ import argparse
 parser = argparse.ArgumentParser(description="Takes a number as input.")
 
 # Define expected arguments
-parser.add_argument("--move", type=int, help="Desktop to move application to")
+parser.add_argument("--move", type=int, help="Desktop to move active window to")
 parser.add_argument("--switch", type=int, help="Desktop to move to")
+parser.add_argument("--pin", type=int, help="Pin active window")
 
 # Define boolean arguments
 parser.add_argument("--pin", action="store_true")
