@@ -8,7 +8,6 @@ parser = argparse.ArgumentParser(description="Takes a number as input.")
 parser.add_argument("--move", type=int, help="Desktop to move active window to")
 parser.add_argument("--switch", type=int, help="Desktop to move to")
 parser.add_argument("--follow", type=int, help="Desktop to move and follow active window to")
-parser.add_argument("--pin", help="Pin active window")
 
 # Define boolean arguments
 parser.add_argument("--pin", action="store_true")
@@ -18,25 +17,29 @@ args = parser.parse_args()
 
 def handle_input():
 
-    if args.switch:
+    if args.switch is not None:
         VirtualDesktop(args.switch).go()
         return
 
-    if args.move:
+    if args.move is not None:
         current_window = AppView.current()
         target_desktop = VirtualDesktop(args.move)
         current_window.move(target_desktop)
         return
 
-    if args.follow:
+    if args.follow is not None:
         current_window = AppView.current()
         target_desktop = VirtualDesktop(args.follow)
         current_window.move(target_desktop)
-        VirtualDesktop(args.follow).go()
+        target_desktop.go()
         return
 
     if args.pin:
-        AppView.current().pin()
+        app = AppView.current()
+        if app.is_pinned():
+            app.unpin()
+        else:
+            app.pin()
         return
 
 handle_input()

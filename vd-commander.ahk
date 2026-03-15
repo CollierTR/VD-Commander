@@ -37,8 +37,6 @@ q::Send(":q")
 5:: Run("python .\main.py --switch 5", , "Hide")
 6:: Run("python .\main.py --switch 6", , "Hide")
 
-w:: Send "!{f4}"
-
 #HotIf
 
 ; This Should move windows between zones of parent monitor...
